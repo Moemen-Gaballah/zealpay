@@ -3,28 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Baby;
+use App\Services\BabyService;
+use App\Traits\APIResponse;
 use Illuminate\Http\Request;
 
 class BabyController extends Controller
 {
+    use APIResponse;
+    public $babyService;
+
+    public function __construct(BabyService $babyService)
+    {
+        $this->babyService = $babyService;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $pageSize = $request->page_size ?? 12;
+        $babies = $this->babyService->get($pageSize);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->sendResponse($babies);
     }
 
     /**

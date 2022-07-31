@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddPartnerRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -27,15 +28,13 @@ class UserController extends Controller
         }
         if($user){
             $token = JWTAuth::fromUser($user);
-            $data = $this->createNewToken($token);
+            $data = $this->createNewToken($token, $user);
 
             return $this->sendResponse($data, 'login success');
         }
 
-//        return response()->json(['error' => 'Unauthorized'], 401);
 
         return $this->sendError('Unauthorized', null,401);
-
     }
     /**
      * Register a User.
@@ -48,7 +47,11 @@ class UserController extends Controller
             $request->validated(),
         );
 
-        return $this->sendResponse($user, 'User successfully registered');
+
+        $token = JWTAuth::fromUser($user);
+        $data = $this->createNewToken($token, $user);
+
+        return $this->sendResponse($data, 'User successfully registered');
     }
 
     /**
@@ -89,12 +92,28 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token){
+    protected function createNewToken($token, $user = null){
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth('api')->user()
+            'user' => $user ?? auth('api')->user()
         ]);
     }
+
+    public function addPartner(AddPartnerRequest $request)
+    {
+        if($request->partner_id == auth('api')->id()){
+            return $this->sendError(' you can not be partener with yourself.', null,400);
+        }
+
+        $user = auth('api')->user();
+        $user->partner_id = $request->partner_id;
+        $user->save();
+
+        return $this->sendResponse(null, 'done updated successfully');
+    }
+
+
+
 }

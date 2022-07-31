@@ -2,12 +2,14 @@
 
 namespace App\Exceptions;
 
+use App\Traits\APIResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use APIResponse;
     /**
      * A list of the exception types that are not reported.
      *
