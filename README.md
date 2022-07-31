@@ -26,7 +26,7 @@ Set your database credentials in your `.env` file
 
 `php artisan serve`
 
-test `php artisan test`
+test TODO can you see TDD in my github `php artisan test`
 
 `http://127.0.0.1:8000/`
 
@@ -38,24 +38,21 @@ Postman Collection in root project  : `Zealpay.postman_collection`
 
 - [x] Register
 - [x] Login
-- [x] Show all Babies
-- 
-- [x] Store Ads
-- [x] Ads filters (by tag, by category)
-- [x] Showing Advertiser Ads (Get Ads by Advertiser Id).
-- [x] schedule a daily email at 08:00 PM (Job)
-- [x] API Documentation
-- [x] Unit Test for create categories
+- [x] get Babies
+- [x] Show Baby
+- [x] Store Baby
+- [x] Edit Baby
+- [x] Delete Baby
 
 ### TODO
-- [] ERD (Entity Relationship Diagram)
 - [] API Documentation with Swagger
 - [] complete Unit test
+- [] ERD (Entity Relationship Diagram)
 - etc...
 
 
-## Demo
+[//]: # (## Demo)
 
-`API Documentation.`
+[//]: # (`API Documentation.`)
 
 

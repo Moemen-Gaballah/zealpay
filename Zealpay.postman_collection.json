@@ -99,14 +99,57 @@
 			"name": "Baby",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "storeBaby",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY1OTI5MTc0NywiZXhwIjoxNjU5Mjk1MzQ3LCJuYmYiOjE2NTkyOTE3NDcsImp0aSI6IkQ0SVhtWGFOa1pRT0hValQiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.KiHQ79bvTNgOr9BCezJb9zJ2e6Ein_B2OyN9CTnVcvA",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY1OTMwMjg1NCwiZXhwIjoxNjU5MzA2NDU0LCJuYmYiOjE2NTkzMDI4NTQsImp0aSI6InpHbVdleWxvMnh3NnNCaUciLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.PjHMBc-EmEKqCJs0GtmF0xu1sxpGJu53MLfyi6kt0DQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "child01",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/babies",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"babies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "showBaby",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY1OTMwMjg1NCwiZXhwIjoxNjU5MzA2NDU0LCJuYmYiOjE2NTkzMDI4NTQsImp0aSI6InpHbVdleWxvMnh3NnNCaUciLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.PjHMBc-EmEKqCJs0GtmF0xu1sxpGJu53MLfyi6kt0DQ",
 									"type": "string"
 								}
 							]
@@ -120,12 +163,108 @@
 							}
 						],
 						"url": {
-							"raw": "{{local}}/babies",
+							"raw": "{{local}}/babies/1",
 							"host": [
 								"{{local}}"
 							],
 							"path": [
-								"babies"
+								"babies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBaby",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY1OTMwMjg1NCwiZXhwIjoxNjU5MzA2NDU0LCJuYmYiOjE2NTkzMDI4NTQsImp0aSI6InpHbVdleWxvMnh3NnNCaUciLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.PjHMBc-EmEKqCJs0GtmF0xu1sxpGJu53MLfyi6kt0DQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "update Child 01",
+									"type": "default"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/babies/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"babies",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBaby",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY1OTMwMjg1NCwiZXhwIjoxNjU5MzA2NDU0LCJuYmYiOjE2NTkzMDI4NTQsImp0aSI6InpHbVdleWxvMnh3NnNCaUciLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.PjHMBc-EmEKqCJs0GtmF0xu1sxpGJu53MLfyi6kt0DQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/babies/4",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"babies",
+								"4"
 							]
 						}
 					},
