@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\BabyRequest;
+use App\Http\Resources\BabyResource;
 use App\Models\Baby;
 use App\Services\BabyService;
 use App\Traits\APIResponse;
@@ -36,9 +39,13 @@ class BabyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BabyRequest $request)
     {
-        //
+        $baby = $this->babyService->store($request->validated());
+
+        $data = new BabyResource($baby);
+
+        return $this->sendResponse($data, 'done added successfully');
     }
 
     /**
@@ -47,20 +54,11 @@ class BabyController extends Controller
      * @param  \App\Models\Baby  $baby
      * @return \Illuminate\Http\Response
      */
-    public function show(Baby $baby)
+    public function show($id)
     {
-        //
-    }
+        $baby = $this->babyService->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Baby  $baby
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Baby $baby)
-    {
-        //
+        return $this->sendResponse(new BabyResource($baby));
     }
 
     /**
@@ -70,9 +68,17 @@ class BabyController extends Controller
      * @param  \App\Models\Baby  $baby
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Baby $baby)
+    public function update(BabyRequest $request, $id)
     {
-        //
+        $baby = Baby::findOrFail($id);
+        if(auth('api')->id() != $baby->user_id){
+            return $this->sendError('Unauthorized', null,401);
+        }
+
+        $baby = $this->babyService->update($request->validated(), $baby);
+        $data = new BabyResource($baby);
+
+        return $this->sendResponse($data, 'done updated successfully');
     }
 
     /**
@@ -81,8 +87,14 @@ class BabyController extends Controller
      * @param  \App\Models\Baby  $baby
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Baby $baby)
+    public function destroy($id)
     {
-        //
+        $baby = Baby::findOrFail($id);
+        if(auth('api')->id() != $baby->user_id){
+            return $this->sendError('Unauthorized', null,401);
+        }
+        $baby = $this->babyService->delete($baby);
+
+        return $this->sendResponse($baby, 'done deleted successfully');
     }
 }
